@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { Checkbox, Collapse } from 'antd';
 
+
+
+
+
+
+
 const { Panel } = Collapse
 
 
@@ -38,7 +44,11 @@ function CheckBox(props) {
 
     return (
         <div>
-            <Collapse defaultActiveKey={['0']} >
+            <Collapse defaultActiveKey={['0']} style={{
+                backgroundColor: "transparent",
+
+
+            }}>
                 <Panel header="Continents" key="1">
                     {renderCheckboxLists()}
                 </Panel>

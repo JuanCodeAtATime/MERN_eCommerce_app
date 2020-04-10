@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
-import { Icon, Col, Card, Row } from 'antd';
+import { Col, Card, Row } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
 import RadioBox from './Sections/RadioBox';
@@ -141,63 +141,75 @@ function LandingPage() {
 
 
     return (
-        <div style={{ width: '75%', margin: '3rem auto' }}>
+        <div style={{ margin: '10rem auto' }}>
             <div style={{ textAlign: 'center' }}>
-                <h2>  Let's Travel Anywhere  <Icon type="rocket" />  </h2>
+
+                <h2 style={{
+                    color: "#1890ff",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    display: "inline-block",
+                    fontSize: "4rem",
+                    paddingLeft: "13px",
+                    paddingRight: "13px",
+                    borderRadius: "10px"
+                }}>fam<span style={{ color: "darkgrey" }}>cloud</span></h2>
             </div>
 
+            <div style={{ width: '75%', margin: '3rem auto', marginTop: "100px" }}>
 
-            {/* Filter  */}
 
-            <Row gutter={[16, 16]}>
-                <Col lg={12} xs={24} >
-                    <CheckBox
-                        list={continents}
-                        handleFilters={filters => handleFilters(filters, "continents")}
+                {/* Filter  */}
+
+                <Row gutter={[16, 16]}>
+                    <Col lg={12} xs={24} >
+                        <CheckBox
+                            list={continents}
+                            handleFilters={filters => handleFilters(filters, "continents")}
+                        />
+                    </Col>
+                    <Col lg={12} xs={24}>
+                        <RadioBox
+                            list={price}
+                            handleFilters={filters => handleFilters(filters, "price")}
+                        />
+                    </Col>
+                </Row>
+
+
+                {/* Search  */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
+
+                    <SearchFeature
+                        refreshFunction={updateSearchTerms}
                     />
-                </Col>
-                <Col lg={12} xs={24}>
-                    <RadioBox
-                        list={price}
-                        handleFilters={filters => handleFilters(filters, "price")}
-                    />
-                </Col>
-            </Row>
+
+                </div>
 
 
-            {/* Search  */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
+                {Products.length === 0 ?
+                    <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
+                        <h2>No post yet...</h2>
+                    </div> :
+                    <div>
+                        <Row gutter={[16, 16]}>
 
-                <SearchFeature
-                    refreshFunction={updateSearchTerms}
-                />
+                            {renderCards}
+
+                        </Row>
+
+
+                    </div>
+                }
+                <br /><br />
+
+                {PostSize >= Limit &&
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <button onClick={onLoadMore}>Load More</button>
+                    </div>
+                }
+
 
             </div>
-
-
-            {Products.length === 0 ?
-                <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
-                    <h2>No post yet...</h2>
-                </div> :
-                <div>
-                    <Row gutter={[16, 16]}>
-
-                        {renderCards}
-
-                    </Row>
-
-
-                </div>
-            }
-            <br /><br />
-
-            {PostSize >= Limit &&
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <button onClick={onLoadMore}>Load More</button>
-                </div>
-            }
-
-
         </div>
     )
 }
